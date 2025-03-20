@@ -1,96 +1,55 @@
-<div class="min-h-screen w-full bg-gray-50 flex flex-col md:flex-row">
-  <!-- Sidebar -->
-  <aside class="w-full md:w-64 bg-gradient-to-b from-gray-200 to-gray-100 p-6 shadow-lg">
-    <h2 class="text-2xl font-heading text-gray-800 mb-6">TASKS</h2>
-    <nav>
-      <ul class="space-y-4">
-        <li class="flex items-center p-3 text-blue-600 font-medium bg-white rounded-lg shadow-md">
-          <i class="fa-solid fa-list-check mr-2"></i>
-          Task List
-        </li>
-        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
-          <i class="fa-solid fa-file mr-2"></i>
-          Task Page
-        </li>
-        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
-          <i class="fa-solid fa-plus mr-2"></i>
-          New Task
-        </li>
-        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
-          <i class="fa-solid fa-spinner mr-2"></i>
-          Task Progress
-        </li>
-        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
-          <i class="fa-solid fa-pen mr-2"></i>
-          Editing of a Task
-        </li>
-        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
-          <i class="fa-solid fa-comment mr-2"></i>
-          Adding a Comment
-        </li>
-      </ul>
-    </nav>
-  </aside>
-
-  <!-- Main Dashboard -->
-  <div class="flex-1 p-4 md:p-8">
-    <h1 class="text-4xl font-heading text-gray-900 mb-6">Welcome back, <%= (Current.user.first_name.present?) ? "#{Current.user.first_name}" : Current.user.email_address %>!</h1>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Left Column: All Tasks -->
-      <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div class="bg-blue-600 text-white p-4 font-semibold text-lg">All Tasks</div>
-        <div class="p-6 space-y-4">
-          <ul class="space-y-3">
-            <li class="flex justify-between items-center">
-              <span class="font-sans">📌 Make a Wireframe</span>
-              <span class="text-red-600 font-semibold">URGENT</span>
-            </li>
-            <li class="flex justify-between items-center">
-              <span class="font-sans">✅ Video Apps Redesign</span>
-              <span class="text-green-600 font-semibold">COMPLETED</span>
-            </li>
-            <li class="flex justify-between items-center">
-              <span class="font-sans">⏳ Make a Wireframe</span>
-              <span class="text-yellow-500 font-semibold">PROGRESS</span>
-            </li>
-            <li class="flex justify-between items-center">
-              <span class="font-sans">📄 Send the CEO Document</span>
-              <span class="text-yellow-500 font-semibold">PROGRESS</span>
-            </li>
-            <li class="flex justify-between items-center">
-              <span class="font-sans">🎨 Website Design</span>
-              <span class="text-gray-500 font-semibold">UPCOMING</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Right Column: Assigned & Admin Tasks -->
-      <div class="space-y-8">
-        <!-- Assigned Tasks -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div class="bg-purple-600 text-white p-4 font-semibold text-lg">Assign Tasks</div>
-          <div class="p-6 space-y-4">
-            <ul class="space-y-3">
-              <li class="font-sans">👤 John Smith - <span class="text-gray-500">2 min ago</span> - Make a Wireframe</li>
-              <li class="font-sans">👤 John Doe - <span class="text-gray-500">5 min ago</span> - iOS Apps Design</li>
-              <li class="font-sans">👤 John Break - <span class="text-gray-500">5 min ago</span> - Make a Website</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Admin Tasks -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div class="bg-red-600 text-white p-4 font-semibold text-lg">Admin Tasks</div>
-          <div class="p-6 space-y-4">
-            <ul class="space-y-3">
-              <li class="font-sans">📄 Send the Document - <span class="text-gray-500">Scheduled for 07:15 AM</span></li>
-              <li class="font-sans">📝 Wireframe Review - <span class="text-gray-500">Created by Mark</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+<div class="max-w-3xl mx-auto p-4">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold">My Todo List</h1>
+    <div>
+      <%= link_to "New Todo", new_todo_item_path, class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2" %>
+      <%= link_to "New Section", new_section_todo_item_path, class: "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded" %>
     </div>
   </div>
+
+  <% if @todo_items.empty? %>
+    <div class="text-center py-8 bg-gray-50 rounded-lg">
+      <p class="text-gray-500">You don't have any todos yet. Create a new todo to get started!</p>
+    </div>
+  <% else %>
+    <div class="space-y-3">
+      <% @todo_items.each do |item| %>
+        <% if item.is_section? %>
+          <!-- Section -->
+          <div class="flex justify-between items-center py-3 px-4 mt-6 mb-2 bg-gray-100 rounded-lg">
+            <h2 class="text-xl font-bold"><%= item.name %></h2>
+            <div class="flex space-x-2">
+              <%= link_to "Edit", edit_todo_item_path(item), class: "text-blue-500 hover:text-blue-700" %>
+              <%= button_to "Delete", todo_item_path(item), method: :delete, class: "text-red-500 hover:text-red-700 bg-transparent border-0 p-0", form: { data: { turbo_confirm: "Are you sure you want to delete this section?" } } %>
+            </div>
+          </div>
+        <% else %>
+          <!-- Regular todo item -->
+          <div class="flex items-start p-3 bg-white shadow rounded hover:shadow-md transition-shadow">
+            <div class="flex-shrink-0 mr-2">
+              <%= form_with model: item, class: "inline" do |f| %>
+                <%= f.check_box :completed, onchange: "this.form.submit()", class: "h-5 w-5 text-blue-500" %>
+              <% end %>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between">
+                <div class="<%= 'line-through text-gray-400' if item.completed %>">
+                  <%= item.name %>
+                </div>
+                <div class="flex space-x-2">
+                  <%= link_to "Edit", edit_todo_item_path(item), class: "text-blue-500 hover:text-blue-700" %>
+                  <%= button_to "Delete", todo_item_path(item), method: :delete, class: "text-red-500 hover:text-red-700 bg-transparent border-0 p-0", form: { data: { turbo_confirm: "Are you sure you want to delete this todo item?" } } %>
+                </div>
+              </div>
+              <% if item.notes.present? %>
+                <div class="text-sm text-gray-500 mt-1">
+                  <%= item.notes %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

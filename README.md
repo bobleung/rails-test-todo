@@ -1,4 +1,4 @@
-# Rails Base2
+# Rails Base
 
 A modern Ruby on Rails 8 application template with authentication, Docker support, and Kamal deployment.
 
@@ -15,6 +15,7 @@ For detailed technical specifications and architecture, please see [SPEC.md](SPE
 * Docker containerization support
 * Kamal deployment setup
 * Multi-database configuration
+* Todo list management with sections
 
 ## Getting Started
 
@@ -65,6 +66,11 @@ After setting up the application:
 2. Log in with your credentials at `/login`
 3. Access the dashboard at `/dashboard`
 4. Manage your profile at `/profile`
+5. Create and manage todo items and sections in the dashboard
+   - Add regular todo items to track tasks
+   - Create sections to organise your todo items
+   - Mark items as complete with a simple checkbox
+   - Edit or delete items directly from the dashboard
 
 ## Deployment
 

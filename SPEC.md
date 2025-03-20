@@ -178,3 +178,44 @@ Kamal deployment is configured for zero-downtime deployments:
 4. **Solid* Adapters**: Database-backed adapters for durability
 5. **Propshaft**: Modern asset pipeline over legacy Sprockets
 6. **Import Maps**: Direct module imports over bundling
+
+## Todo List Extension
+
+### Data Model
+
+This application has been extended to include todo list functionality with the following data model:
+
+#### Todo Items
+- `todo_items`: Stores both regular todo items and section headers
+  - `name`: String (required) - The title of the todo item or section
+  - `notes`: Text (optional) - Additional details for todo items
+  - `completed`: Boolean (default: false) - Whether the todo item is completed
+  - `order`: Integer (required) - For sorting the items
+  - `is_section`: Boolean (default: false) - Whether this item is a section header
+  - `user_id`: Foreign key to users (required) - Owner of the todo item
+  - Timestamps
+
+### Security Implementation
+
+The Todo List implementation follows strict security practices:
+
+1. **User Isolation**: Each user can only access their own todo items
+   - All controller actions filter todo items by the current user
+   - The `Current.user` pattern is used to scope data access
+
+2. **Controller Security**: 
+   - Authorization checks are performed in the controller via `before_action` callbacks
+   - The `set_todo_item` method ensures todo items belong to the current user
+
+3. **Model Validations**:
+   - Data integrity is ensured through model-level validations
+   - Business logic (e.g., sections can't be completed) is enforced at the model level
+
+### User Interface
+
+The Todo List interface provides:
+
+1. **Dashboard**: Central view showing both todo items and sections
+2. **Item Creation**: Forms for creating both regular todo items and section headers
+3. **Visual Differentiation**: Sections are visually distinct from regular todo items
+4. **Inline Actions**: Edit, delete, and completion status can be changed directly from the dashboard
