@@ -1,96 +1,50 @@
-# Rails Base
+# Todo List Application with Sections
 
-A modern Ruby on Rails 8 application template with authentication, Docker support, and Kamal deployment.
+A modern task management application built with Ruby on Rails 8 featuring:
 
-## Overview
+- **Drag-to-reorder functionality** for both todo items and sections
+- **Nested sections** implemented through self-referential relationships
+- **Authentication system** with secure session management
+- **Responsive UI** built with Tailwind CSS
+- **Interactive features** using Stimulus.js and SortableJS
 
-Rails Base is a starter template for Ruby on Rails applications that provides a solid foundation for building web applications quickly. It includes user authentication, modern UI components, and deployment configurations out of the box.
+## Key Features
 
-For detailed technical specifications and architecture, please see [SPEC.md](SPEC.md).
+✅ **Hierarchical Organization**  
+Create sections that can contain multiple todo items
 
-## Features
+✅ **Intuitive Drag Interface**  
+Rearrange items and sections with native drag-and-drop
 
-* Complete user authentication system
-* Modern UI with TailwindCSS
-* Docker containerization support
-* Kamal deployment setup
-* Multi-database configuration
-* Todo list management with sections
+✅ **Completion Tracking**  
+Mark items as complete with persistent checkboxes
 
-## Getting Started
+✅ **Security First**  
+User-specific data scoping and CSRF protection
 
-### Requirements
+## Technology Stack
 
-* Rails 8.0.2
-* Ruby 3.3.5
-* SQLite 3
-* Node.js and Yarn
+- **Framework**: Ruby on Rails 8
+- **Database**: SQLite (development), PostgreSQL (production)
+- **Frontend**: Tailwind CSS + Stimulus.js
+- **Drag Library**: SortableJS
+- **Authentication**: Custom session-based system
 
-### Setup
-
-1. Clone the repository
-   ```bash
-   git clone <repository-url>
-   cd rails-base
-   ```
-
-2. Install dependencies
-   ```bash
-   bundle install
-   ```
-
-3. Setup the database
-   ```bash
-   bin/rails db:setup
-   ```
-
-4. Start the development server
-   ```bash
-   bin/rails server
-   ```
-
-5. Visit http://localhost:3000 in your browser
-
-## Running with Docker
+## Installation
 
 ```bash
-docker build -t rails-base .
-docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name rails-base rails-base
+bin/setup
+rails server
 ```
 
-## Basic Usage
-
-After setting up the application:
-
-1. Register a new user account at `/register`
-2. Log in with your credentials at `/login`
-3. Access the dashboard at `/dashboard`
-4. Manage your profile at `/profile`
-5. Create and manage todo items and sections in the dashboard
-   - Add regular todo items to track tasks
-   - Create sections to organise your todo items
-   - Mark items as complete with a simple checkbox
-   - Edit or delete items directly from the dashboard
+Visit `http://localhost:3000` and register a new account
 
 ## Deployment
 
-Basic deployment steps using Kamal:
-
-1. Configure your deployment settings in `.kamal/`
-2. Deploy with:
-   ```bash
-   bundle exec kamal setup
-   bundle exec kamal deploy
-   ```
-
-For detailed deployment configuration, see [SPEC.md](SPEC.md).
-
-## Testing
-
-Run the test suite with:
-
+Pre-configured for Fly.io deployment:
 ```bash
-bin/rails test
+fly launch
+fly deploy
 ```
 
 ## Contributing

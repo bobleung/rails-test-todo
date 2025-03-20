@@ -1,16 +1,4 @@
 Rails.application.routes.draw do
-  get "sections/index"
-  get "sections/new"
-  get "sections/create"
-  get "sections/edit"
-  get "sections/update"
-  get "sections/destroy"
-  get "todo_items/index"
-  get "todo_items/new"
-  get "todo_items/create"
-  get "todo_items/edit"
-  get "todo_items/update"
-  get "todo_items/destroy"
   resource :session
   resources :passwords, param: :token
   get "login" => "sessions#new", as: :login
@@ -32,10 +20,17 @@ Rails.application.routes.draw do
 
   # Dashboard route
   get "dashboard" => "dashboard#index", as: :dashboard
-  
+
   # Todo items routes
   get "todo_items/new_section" => "todo_items#new_section", as: :new_section_todo_item
-  resources :todo_items
+  resources :todo_items do
+    patch :reorder, on: :collection
+  end
+
+  # Sections routes
+  resources :sections do
+    patch :reorder, on: :collection
+  end
 
   # Profile route
   resource :profile, only: [ :edit, :update, :destroy ]
