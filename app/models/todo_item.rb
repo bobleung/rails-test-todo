@@ -6,9 +6,9 @@ class TodoItem < ApplicationRecord
   has_many :todo_items, foreign_key: :section_id, class_name: "TodoItem", dependent: :nullify
   
   validates :name, presence: true
-  validates :order, presence: true, numericality: { only_integer: true }
+  validates :position, presence: true, numericality: { only_integer: true }
   
-  default_scope { order(order: :asc) }
+  default_scope { order(position: :asc) }
   
   # Scopes for filtering todo items
   scope :regular_items, -> { where(is_section: false) }

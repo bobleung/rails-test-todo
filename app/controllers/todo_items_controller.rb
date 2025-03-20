@@ -51,18 +51,15 @@ class TodoItemsController < ApplicationController
   end
 
   def reorder
-    @todo_item = Current.user.todo_items.find(params[:todo_item][:id])
-    
-    # Update positions of all items based on ordered_ids
-    if params[:todo_item][:ordered_ids].present?
-      params[:todo_item][:ordered_ids].each_with_index do |id, index|
-        Current.user.todo_items.find(id).update(order: index + 1)
+    ordered_ids = params[:todo_item][:ordered_ids]
+  
+    TodoItem.transaction do
+      ordered_ids.each_with_index do |id, index|
+        TodoItem.where(id: id).update_all(position: index + 1)
       end
-      
-      head :ok
-    else
-      head :unprocessable_entity
     end
+  
+    head :ok
   end
 
   private
