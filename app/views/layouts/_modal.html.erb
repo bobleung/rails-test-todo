@@ -1,0 +1,38 @@
+<%
+  # Set default values for optional parameters
+  dangerous_action ||= false
+  confirm_button_label ||= 'Confirm'
+  
+  # Define button class based on action type
+  confirm_button_class = dangerous_action ? "btn-danger" : "btn-confirm"
+%>
+<div id="<%= modal_id %>" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900 bg-opacity-50 hidden" 
+     data-controller="modal" 
+     data-modal-id="<%= modal_id %>" 
+     data-action="keydown.escape->modal#hide" 
+     role="dialog" aria-modal="true">
+  <!-- Modal backdrop -->
+  <div class="fixed inset-0 bg-black opacity-50" data-action="click->modal#hide"></div>
+  <!-- Modal content -->
+  <div class="card sm:max-w-lg sm:w-full transform transition-all">
+    <!-- Modal header -->
+    <div class="card-header">
+      <h2 class="card-title">
+        <%= modal_title %>
+      </h2>
+    </div>
+    <!-- Modal body -->
+    <div class="card-body">
+      <%= modal_body %>
+    </div>
+    <!-- Modal footer -->
+    <div class="card-footer">
+      <button type="button" class="btn-cancel" data-action="click->modal#hide">Cancel</button>
+      <% if http_method && http_method.downcase != 'get' %>
+        <%= button_to confirm_button_label, confirm_button_path, method: http_method.downcase.to_sym, class: confirm_button_class %>
+      <% else %>
+        <%= link_to confirm_button_label, confirm_button_path, class: "#{confirm_button_class} text-center inline-block" %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<nav class="bg-gray-800 text-white p-4 fixed top-0 left-0 w-full flex justify-between items-center">
+  <div class="text-lg font-bold">
+    <%= link_to "My App", root_path, class: "hover:text-gray-300" %>
+  </div>
+  <% if authenticated? %>
+    <ul class="flex space-x-4 items-center">
+      <li>
+        <%= link_to dashboard_path, class: "hover:text-gray-300 flex items-center" do %>
+          <i class="fa-solid fa-tachometer-alt mr-2"></i>
+          Dashboard
+        <% end %>
+      </li>
+      <li>
+        <%= link_to edit_profile_path, class: "block" do %>
+          <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+            <span class="text-white font-bold">
+              <%= (Current.user.first_name.present? && Current.user.last_name.present?) ? "#{Current.user.first_name.first}#{Current.user.last_name.first}" : "?" %>
+            </span>
+          </div>
+        <% end %>
+      </li>
+    </ul>
+  <% else %>
+    <ul class="flex space-x-4">
+      <li><%= link_to "Login", login_path, class: "hover:text-gray-300" %></li>
+    </ul>
+  <% end %>
+</nav>

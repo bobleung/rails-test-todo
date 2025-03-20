@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Base container styles */
+  .container-base {
+    @apply bg-white rounded-xl overflow-hidden shadow-xl;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply px-5 py-2.5 rounded-xl font-medium text-white transition-colors;
+  }
+
+  .btn-primary {
+    @apply py-2 px-6 rounded-xl bg-blue-600 text-white font-semibold shadow-md transition-all duration-300 ease-in-out hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2;
+  }
+
+  .btn-cancel {
+    @apply btn bg-gray-500 hover:bg-gray-600;
+  }
+
+  .btn-confirm {
+    @apply btn bg-blue-600 hover:bg-blue-700;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 hover:bg-red-700;
+  }
+
+  /* Full-width button variant */
+  .btn-full {
+    @apply w-full p-3;
+  }
+
+  /* Text link button styles */
+  .btn-text {
+    @apply text-blue-600 hover:text-blue-700 transition-colors;
+  }
+
+  .btn-text-danger {
+    @apply text-red-600 hover:text-red-700 transition-colors;
+  }
+
+  /* Card component using base container */
+  .card {
+    @apply container-base;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+
+  .card-title {
+    @apply text-xl font-bold text-gray-900 text-left;
+  }
+
+  .card-body {
+    @apply px-6 py-5 text-left;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-200 flex justify-end space-x-3;
+  }
+
+  /* Form container using base container */
+  .form-container {
+    @apply container-base p-8 w-full max-w-md;
+  }
+
+  /* Form input styles */
+  .form-input {
+    @apply w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+
+  /* Form group styles */
+  .form-group {
+    @apply space-y-6;
+  }
+
+  /* Section container styles */
+  .section-container {
+    @apply p-4 border border-gray-300 rounded-xl;
+  }
+
+  /* Page layout styles */
+  .page-container {
+    @apply min-h-screen flex flex-col items-center justify-center;
+  }
+
+  /* Flash message styles */
+  .flash-alert {
+    @apply mb-4 text-red-600;
+  }
+
+  .flash-notice {
+    @apply mb-4 text-green-600;
+  }
+
+  /* Heading styles */
+  .heading-large {
+    @apply text-2xl font-bold mb-6 text-center;
+  }
+
+  /* Helper text styles */
+  .text-helper {
+    @apply mt-2 text-sm text-gray-500;
+  }
+}

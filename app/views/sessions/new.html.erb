@@ -1,0 +1,42 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <% if flash[:alert] %>
+      <div class="mb-4 text-red-600"><%= flash[:alert] %></div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="mb-4 text-green-600"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <h2 class="text-2xl font-bold mb-6 text-center">Sign In</h2>
+
+    <%= form_with url: session_path, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.email_field :email_address, required: true, autofocus: true, 
+          autocomplete: "username", placeholder: "Enter your email address", 
+          value: params[:email_address], 
+          class: "w-full border border-gray-300 p-3 rounded 
+                 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div>
+        <%= form.password_field :password, required: true, 
+          autocomplete: "current-password", placeholder: "Enter your password", 
+          maxlength: 72,
+          class: "w-full border border-gray-300 p-3 rounded 
+                 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      </div>
+      <div>
+        <%= form.submit "Sign in", 
+          class: "w-full bg-blue-500 hover:bg-blue-600 text-white p-3 rounded" %>
+      </div>
+    <% end %>
+
+    <div class="mt-4 text-center">
+      <%= link_to "Forgot password?", new_password_path, 
+        class: "text-blue-500 hover:underline" %>
+    </div>
+    
+    <div class="mt-2 text-center">
+      <p class="text-gray-600">Don't have an account? <%= link_to "Sign up", new_registration_path, class: "text-blue-500 hover:underline" %></p>
+    </div>
+  </div>
+</div>

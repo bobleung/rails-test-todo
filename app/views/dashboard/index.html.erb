@@ -1,0 +1,96 @@
+<div class="min-h-screen w-full bg-gray-50 flex flex-col md:flex-row">
+  <!-- Sidebar -->
+  <aside class="w-full md:w-64 bg-gradient-to-b from-gray-200 to-gray-100 p-6 shadow-lg">
+    <h2 class="text-2xl font-heading text-gray-800 mb-6">TASKS</h2>
+    <nav>
+      <ul class="space-y-4">
+        <li class="flex items-center p-3 text-blue-600 font-medium bg-white rounded-lg shadow-md">
+          <i class="fa-solid fa-list-check mr-2"></i>
+          Task List
+        </li>
+        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
+          <i class="fa-solid fa-file mr-2"></i>
+          Task Page
+        </li>
+        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
+          <i class="fa-solid fa-plus mr-2"></i>
+          New Task
+        </li>
+        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
+          <i class="fa-solid fa-spinner mr-2"></i>
+          Task Progress
+        </li>
+        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
+          <i class="fa-solid fa-pen mr-2"></i>
+          Editing of a Task
+        </li>
+        <li class="flex items-center p-3 text-gray-700 hover:text-blue-500 cursor-pointer">
+          <i class="fa-solid fa-comment mr-2"></i>
+          Adding a Comment
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Dashboard -->
+  <div class="flex-1 p-4 md:p-8">
+    <h1 class="text-4xl font-heading text-gray-900 mb-6">Welcome back, <%= (Current.user.first_name.present?) ? "#{Current.user.first_name}" : Current.user.email_address %>!</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Left Column: All Tasks -->
+      <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="bg-blue-600 text-white p-4 font-semibold text-lg">All Tasks</div>
+        <div class="p-6 space-y-4">
+          <ul class="space-y-3">
+            <li class="flex justify-between items-center">
+              <span class="font-sans">📌 Make a Wireframe</span>
+              <span class="text-red-600 font-semibold">URGENT</span>
+            </li>
+            <li class="flex justify-between items-center">
+              <span class="font-sans">✅ Video Apps Redesign</span>
+              <span class="text-green-600 font-semibold">COMPLETED</span>
+            </li>
+            <li class="flex justify-between items-center">
+              <span class="font-sans">⏳ Make a Wireframe</span>
+              <span class="text-yellow-500 font-semibold">PROGRESS</span>
+            </li>
+            <li class="flex justify-between items-center">
+              <span class="font-sans">📄 Send the CEO Document</span>
+              <span class="text-yellow-500 font-semibold">PROGRESS</span>
+            </li>
+            <li class="flex justify-between items-center">
+              <span class="font-sans">🎨 Website Design</span>
+              <span class="text-gray-500 font-semibold">UPCOMING</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Column: Assigned & Admin Tasks -->
+      <div class="space-y-8">
+        <!-- Assigned Tasks -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div class="bg-purple-600 text-white p-4 font-semibold text-lg">Assign Tasks</div>
+          <div class="p-6 space-y-4">
+            <ul class="space-y-3">
+              <li class="font-sans">👤 John Smith - <span class="text-gray-500">2 min ago</span> - Make a Wireframe</li>
+              <li class="font-sans">👤 John Doe - <span class="text-gray-500">5 min ago</span> - iOS Apps Design</li>
+              <li class="font-sans">👤 John Break - <span class="text-gray-500">5 min ago</span> - Make a Website</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Admin Tasks -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div class="bg-red-600 text-white p-4 font-semibold text-lg">Admin Tasks</div>
+          <div class="p-6 space-y-4">
+            <ul class="space-y-3">
+              <li class="font-sans">📄 Send the Document - <span class="text-gray-500">Scheduled for 07:15 AM</span></li>
+              <li class="font-sans">📝 Wireframe Review - <span class="text-gray-500">Created by Mark</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

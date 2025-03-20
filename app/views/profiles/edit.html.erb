@@ -1,0 +1,70 @@
+<div class="page-container">
+  <!-- The white container with the form -->
+  <div class="form-container my-10">
+    <% if flash[:alert] %>
+      <div class="flash-alert"><%= flash[:alert] %></div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="flash-notice"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <h2 class="heading-large">Edit Profile</h2>
+
+    <%= form_with model: @user, url: profile_path, method: :patch, local: true, class: "form-group" do |form| %>
+      <div>
+        <%= form.text_field :first_name, required: true, autofocus: true, autocomplete: "given-name", placeholder: "First name", value: @user.first_name, class: "form-input" %>
+      </div>
+      <div>
+        <%= form.text_field :last_name, required: true, autocomplete: "family-name", placeholder: "Last name", value: @user.last_name, class: "form-input" %>
+      </div>
+      <div>
+        <%= form.email_field :email_address, required: true, autocomplete: "username", placeholder: "Enter your email address", value: @user.email_address, class: "form-input" %>
+      </div>
+      
+      <!-- Password fields grouped in a container box -->
+      <div class="section-container">
+        <div>
+          <%= form.password_field :password, autocomplete: "new-password", placeholder: "Enter your new password", maxlength: 72, class: "form-input" %>
+        </div>
+        <div class="mt-4">
+          <%= form.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm your new password", maxlength: 72, class: "form-input" %>
+        </div>
+        <p class="text-helper">
+          Only fill these fields if you wish to update your password. Leave blank to keep your current password.
+        </p>
+      </div>
+      
+      <div>
+        <%= form.submit "Save Changes", class: "btn-confirm btn-full" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Logout button with top & bottom margin -->
+  <div class="my-6 text-center">
+    <button type="button" class="btn-text-danger" data-controller="modal" data-action="modal#show" data-modal-id="logout-modal">Logout</button>
+    <%= render partial: 'layouts/modal', locals: { 
+      modal_id: 'logout-modal',
+      modal_title: 'Confirm Logout',
+      modal_body: 'Are you sure you want to log out?',
+      confirm_button_label: 'Logout',
+      http_method: 'get',
+      confirm_button_path: logout_path,
+    } %>
+  </div>
+
+  <!-- Delete account button -->
+  <div class="text-center">
+    <button type="button" class="btn-text-danger" data-controller="modal" data-action="modal#show" data-modal-id="delete-account-modal">Delete Account</button>
+    <%= render partial: 'layouts/modal', locals: { 
+      modal_id: 'delete-account-modal',
+      modal_title: 'Delete Account',
+      modal_body: 'Are you sure you want to delete your account? This action cannot be undone.',
+      confirm_button_label: 'Delete my account!',
+      confirm_button_path: profile_path,
+      http_method: 'delete',
+      dangerous_action: true
+    } %>
+  </div>
+
+</div>
